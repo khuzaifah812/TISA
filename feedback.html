@@ -3,64 +3,645 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TISA — Feedback</title>
-  <link rel="stylesheet" href="style.css">
+  <title>TISA — Feedback & Payments</title>
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f9fafc;
+      color: #1e2b3c;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ----- NAVBAR ----- */
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+      background-color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      border-bottom: 1px solid #e9edf4;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: #0a2a44;
+      letter-spacing: -0.01em;
+    }
+
+    .navbar-brand img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #2c3e54;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #0d6efd;
+      border-bottom-color: #0d6efd;
+    }
+
+    /* ----- FEEDBACK INTRO ----- */
+    .feedback-intro {
+      max-width: 800px;
+      margin: 2rem auto 1rem;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+
+    .feedback-intro h1 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0a2a44;
+      margin-bottom: 0.75rem;
+    }
+
+    .feedback-intro p {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: #3e5268;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ----- FEEDBACK SECTION & CARD ----- */
+    .feedback {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 1.5rem 2rem;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .feedback-card {
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 20px 35px -8px rgba(0, 20, 40, 0.12), 0 5px 15px rgba(0, 0, 0, 0.03);
+      padding: clamp(1.5rem, 5vw, 2.5rem);
+      border: 1px solid #eef2f8;
+    }
+
+    .feedback-card h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #5e7a9a;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    .feedback-card h2 {
+      font-size: clamp(1.6rem, 5vw, 2rem);
+      font-weight: 700;
+      color: #0a2a44;
+      margin-bottom: 1.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    /* ----- FORM STYLES ----- */
+    .feedback-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .form-row .form-group {
+      flex: 1 1 200px;
+      min-width: 0;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1f3a57;
+      letter-spacing: 0.01em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border: 1.5px solid #dce3ec;
+      border-radius: 18px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #fbfdff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+      background: #ffffff;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .btn-primary {
+      align-self: flex-start;
+      background: #0a2a44;
+      color: #ffffff;
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 8px 20px -6px rgba(10, 42, 68, 0.25);
+      margin-top: 0.5rem;
+      width: auto;
+    }
+
+    .btn-primary:hover {
+      background: #0d3b61;
+      box-shadow: 0 10px 24px -8px rgba(10, 42, 68, 0.35);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ----- SUCCESS MESSAGE ----- */
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background: #e8f5e9;
+      border-radius: 20px;
+      border: 1px solid #a5d6a7;
+      margin-top: 1rem;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-message .icon {
+      font-size: 3rem;
+      color: #2e7d32;
+      margin-bottom: 0.75rem;
+    }
+
+    .success-message h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1b5e20;
+      margin-bottom: 0.5rem;
+    }
+
+    .success-message p {
+      font-size: 1.05rem;
+      color: #2e7d32;
+      margin-bottom: 1.5rem;
+    }
+
+    .success-message .btn-secondary {
+      display: inline-block;
+      background: #0a2a44;
+      color: #ffffff;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+
+    .success-message .btn-secondary:hover {
+      background: #0d3b61;
+    }
+
+    /* ----- COMPACT PAYMENT STRIP (Airtel Money) ----- */
+    .payment-strip {
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      padding: 0 1.5rem;
+    }
+
+    .strip-card {
+      background: #ffffff;
+      border-radius: 22px;
+      border: 1px solid #eef2f8;
+      box-shadow: 0 14px 28px -10px rgba(0, 20, 40, 0.10), 0 4px 10px rgba(0, 0, 0, 0.02);
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem 1.25rem;
+    }
+
+    /* logo + merchant text */
+    .strip-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .strip-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #E30613 0%, #B3050F 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.62rem;
+      color: #ffffff;
+      letter-spacing: -0.04em;
+      box-shadow: 0 4px 10px rgba(227, 6, 19, 0.25);
+      flex-shrink: 0;
+    }
+
+    .strip-info {
+      min-width: 0;
+    }
+
+    .strip-info .merchant-line {
+      font-size: 0.8rem;
+      color: #5e7a9a;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+    }
+
+    .strip-info .merchant-line strong {
+      color: #0a2a44;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: none;
+    }
+
+    .strip-info .name-line {
+      font-size: 0.78rem;
+      color: #48627c;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 320px;
+    }
+
+    .strip-info .name-line strong {
+      color: #0a2a44;
+      font-weight: 700;
+    }
+
+    /*  USSD code */
+  
+
+    .ussd-label {
+      font-size: 0.75rem;
+      font-weight: 900;
+      color: #5e7a9a;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+  
+    }
+
+   .ussd-code {
+      display: inline-block;
+      background: #0a2a44;
+      color: #ffffff;
+      padding: 0.45rem 1rem;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-weight: 8000;
+      letter-spacing: 0.06em;
+      font-family: 'Courier New', monospace;
+      box-shadow: 0 5px 12px -3px rgba(10, 42, 68, 0.35);
+      white-space: nowrap;
+    }
+
+    /* ----- FOOTER ----- */
+    .site-footer {
+      background: #ffffff;
+      border-top: 1px solid #e2e8f2;
+      padding: 1.5rem 1.5rem;
+      margin-top: auto;
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      font-size: 0.9rem;
+      color: #48627c;
+    }
+
+    .footer-bottom a {
+      font-weight: 500;
+      color: #0d6efd;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .footer-bottom a:hover {
+      border-bottom-color: #0d6efd;
+    }
+
+    /* ----- RESPONSIVE TWEAKS ----- */
+    @media (max-width: 720px) {
+      .strip-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.7rem;
+      }
+
+      .strip-info .name-line {
+        white-space: normal;
+        max-width: 100%;
+      }
+
+      .strip-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 0.5rem;
+      }
+
+      .nav-links a {
+        font-size: 0.8rem;
+      }
+
+      .feedback-intro {
+        margin-top: 1.5rem;
+      }
+
+      .feedback-card {
+        border-radius: 24px;
+        padding: 1.5rem;
+      }
+
+      .form-row {
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      .btn-primary {
+        width: 100%;
+        text-align: center;
+        padding: 1rem 1.5rem;
+      }
+
+      .success-message .btn-secondary {
+        width: 100%;
+        text-align: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+      }
+
+      .navbar-brand {
+        font-size: 1.1rem;
+      }
+
+      .strip-right {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <nav class="navbar navbar-light bg-light">
+  <!-- NAVBAR -->
+  <nav class="navbar">
     <a class="navbar-brand" href="tisa.html">
-      <img src="tisalogo.jpeg" width="30" height="30" class="d-inline-block align-top" alt="TISA Logo">
+      <img src="tisalogo.jpeg" width="30" height="30" alt="TISA Logo">
       TISA
     </a>
     <div class="nav-links">
       <a href="index.html">HOME</a>
-      <a href="index.html#about">ABOUT</a>
-      <a href="index.html#gallery">GALLERY</a>
-      <a href="index.html#join">JOIN US</a>
+      
     </div>
   </nav>
+
+  <!-- INTRO -->
   <div class="feedback-intro">
     <h1>We'd love to hear from you</h1>
     <p>Your thoughts help us build a better TISA — tell us what's working, what's not, or what you'd like to see next.</p>
   </div>
 
-
+  <!-- FEEDBACK SECTION -->
   <section class="feedback" id="feedback">
     <div class="wrap">
       <div class="feedback-card">
         <h3>Feedback</h3>
         <h2>Send your Feedback</h2>
 
-        <form class="feedback-form" action="mailto:tisa.uict@hotmail.com" method="POST" enctype="text/plain">
+        <!-- Formspree form -->
+        <form
+          id="feedbackForm"
+          class="feedback-form"
+          action="https://formspree.io/f/meaornpa"
+          method="POST"
+        >
           <div class="form-row">
             <div class="form-group">
-              <label>Name</label>
-              <input type="text" name="name" required>
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your full name" required>
             </div>
             <div class="form-group">
-              <label>Email</label>
-              <input type="email" name="email" required>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label>Comment</label>
-            <textarea name="message" rows="5" required></textarea>
+            <label for="message">Comment</label>
+            <textarea id="message" name="message" rows="5" placeholder="Share your thoughts, suggestions, or questions..." required></textarea>
           </div>
 
-          <button type="submit" class="btn-primary">Submit</button>
+          <!-- Hidden field for Formspree subject -->
+          <input type="hidden" name="_subject" value="New TISA Feedback Submission">
+
+          <button type="submit" class="btn-primary" id="submitBtn">Submit Feedback</button>
         </form>
+
+        <!-- Success message -->
+        <div id="successMessage" class="success-message">
+          <div class="icon">🎉</div>
+          <h3>Your feedback received successfully</h3>
+          <p>Thank you for helping us improve TISA.</p>
+          <a href="index.html" class="btn-secondary">Back to Home</a>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ===================== COMPACT PAYMENT STRIP (Airtel Money) ===================== -->
+  <section class="payment-strip" id="payments">
+    <div class="strip-card">
+
+      <!-- Merchant payment-->
+      <div class="strip-left">
+        <div class="strip-logo">airtel</div>
+        <div class="strip-info">
+          <div class="merchant-line">Merchant ID: <strong>7225926</strong></div>
+          <div class="name-line">Registered as <strong>TISA-UICT</strong> </div>
+
+          <!---- USSD code -->
+     
+        <span class="ussd-label">Pay via</span>
+        <span class="ussd-code">*185*9#</span>
+      
+        </div>
+      </div>
+
+  <!-- FOOTER -->
   <footer class="site-footer">
-    <div class="wrap footer-bottom">
-      <span>© 2026 TISA — Uganda Institute of Information and Communications Technology</span>
-      <a href="index.html">Back to Home</a>
+    <div class="footer-bottom">
+      <span>© 2026 TISA — Uganda Institute of Information and Communications Technology</span><br><br><br>
+      <a href="index.html">Back to Home</a><br><br><br>
     </div>
   </footer>
+
+  <script>
+    (function() {
+      const form = document.getElementById('feedbackForm');
+      const successMessage = document.getElementById('successMessage');
+      const submitBtn = document.getElementById('submitBtn');
+
+      if (!form) return;
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        const data = new FormData(form);
+        const action = form.action;
+
+        try {
+          const response = await fetch(action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (response.ok) {
+            form.style.display = 'none';
+            successMessage.classList.add('show');
+            form.reset();
+          } else {
+            const errorData = await response.json();
+            alert('Oops! Something went wrong: ' + (errorData.error || 'Please try again.'));
+          }
+        } catch (error) {
+          alert('Network error. Please check your connection and try again.');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit Feedback';
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>

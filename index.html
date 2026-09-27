@@ -848,6 +848,121 @@
     .form-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
 
     /* ============================================================
+       COMPACT PAYMENT STRIP (Airtel Money) — placed after form
+       ============================================================ */
+    .payment-strip {
+      max-width: 800px;
+      margin: 1.75rem auto 0;
+    }
+    .strip-card {
+      background: #131a28;
+      border-radius: 18px;
+      border: 1px solid rgba(56,189,248,.25);
+      box-shadow: 0 14px 28px -10px rgba(0, 20, 40, 0.5), 0 4px 10px rgba(0, 0, 0, 0.15);
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem 1.25rem;
+      transition: border-color .3s ease, box-shadow .3s ease;
+    }
+    .strip-card:hover {
+      border-color: rgba(56,189,248,.55);
+      box-shadow: 0 18px 34px -12px rgba(56,189,248,.3);
+    }
+
+    /* left cluster: logo + merchant text */
+    .strip-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .strip-logo {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #E30613 0%, #B3050F 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.62rem;
+      color: #ffffff;
+      letter-spacing: -0.04em;
+      box-shadow: 0 4px 10px rgba(227, 6, 19, 0.3);
+      flex-shrink: 0;
+    }
+
+    .strip-info {
+      min-width: 0;
+    }
+
+    .strip-info .merchant-line {
+      font-size: 0.78rem;
+      color: #8b98a8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.25;
+    }
+
+    .strip-info .merchant-line strong {
+      color: #38bdf8;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: none;
+    }
+
+    .strip-info .name-line {
+      font-size: 0.78rem;
+      color: #8b98a8;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 340px;
+    }
+
+    .strip-info .name-line strong {
+      color: #e6edf5;
+      font-weight: 700;
+    }
+
+    /* right cluster: USSD code */
+    .strip-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .strip-right .ussd-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #8b98a8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .strip-right .ussd-code {
+      display: inline-block;
+      background: #0a2a44;
+      color: #ffffff;
+      padding: 0.45rem 1rem;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      font-family: 'Courier New', monospace;
+      box-shadow: 0 5px 12px -3px rgba(10, 42, 68, 0.5);
+      white-space: nowrap;
+    }
+
+    /* ============================================================
        JOIN BOX
        ============================================================ */
     .join-box {
@@ -930,20 +1045,48 @@
     }
     .qr-box span { display: block; color: #8b98a8; font-size: .78rem; margin-top: .6rem; letter-spacing: 1px; }
 
-    .feedback-btn {
+    /* ============================================================
+       FLOATING FEEDBACK BUTTON (fixed bottom-right)
+       ============================================================ */
+    .feedback-fab {
+      position: fixed;
+      bottom: 1.75rem;
+      right: 1.75rem;
+      z-index: 1500;
       display: inline-flex;
       align-items: center;
       gap: .5rem;
-      margin-top: 2rem;
-      padding: .75rem 1.5rem;
-      border-radius: 10px;
-      border: 2px solid #38bdf8;
-      color: #38bdf8;
-      font-weight: 700;
+      padding: .85rem 1.4rem;
+      border-radius: 50px;
+      background: #38bdf8;
+      color: #04182b;
+      font-weight: 800;
       font-size: .9rem;
-      transition: background .3s ease, color .3s ease;
+      letter-spacing: .3px;
+      box-shadow: 0 10px 28px -6px rgba(56,189,248,.55), 0 4px 12px rgba(0,0,0,.25);
+      transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+      white-space: nowrap;
+      border: 2px solid rgba(255,255,255,.15);
     }
-    .feedback-btn:hover { background: #38bdf8; color: #04182b; }
+    .feedback-fab:hover {
+      background: #7dd3fc;
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 16px 36px -8px rgba(56,189,248,.7);
+    }
+    .feedback-fab:active { transform: translateY(-1px) scale(.99); }
+    .feedback-fab svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+    /* light mode variant */
+    body.light-mode .feedback-fab {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: rgba(255,255,255,.5);
+      box-shadow: 0 10px 28px -6px rgba(2,132,199,.5), 0 4px 12px rgba(0,0,0,.12);
+    }
+    body.light-mode .feedback-fab:hover {
+      background: #0369a1;
+      box-shadow: 0 16px 36px -8px rgba(2,132,199,.65);
+    }
 
     /* ============================================================
        FOOTER
@@ -1081,7 +1224,8 @@
     body.light-mode .form-card,
     body.light-mode .join-box,
     body.light-mode .list-card,
-    body.light-mode .partner-card {
+    body.light-mode .partner-card,
+    body.light-mode .strip-card {
       background: #ffffff;
       border-color: rgba(15,23,42,.08);
       box-shadow: 0 2px 14px rgba(15,23,42,.04);
@@ -1153,6 +1297,13 @@
     body.light-mode .step { color: #334155; }
     body.light-mode .step-num { background: rgba(2,132,199,.1); border-color: #0284c7; color: #0284c7; }
 
+    body.light-mode .strip-card { border-color: rgba(2,132,199,.25); }
+    body.light-mode .strip-info .merchant-line { color: #64748b; }
+    body.light-mode .strip-info .merchant-line strong { color: #0284c7; }
+    body.light-mode .strip-info .name-line { color: #64748b; }
+    body.light-mode .strip-info .name-line strong { color: #0f172a; }
+    body.light-mode .strip-right .ussd-label { color: #64748b; }
+
     body.light-mode .site-footer { background: #eef2f7; border-top-color: rgba(15,23,42,.08); }
     body.light-mode .footer-motto { color: #a16207; border-bottom-color: rgba(15,23,42,.08); }
     body.light-mode .footer-col h5 { color: #0284c7; }
@@ -1203,6 +1354,10 @@
       .form-row { grid-template-columns: 1fr; }
       section { padding: 4rem 0; }
       .hero { min-height: 82vh; padding: 4rem 1.25rem 3rem; }
+
+      .strip-card { flex-direction: column; align-items: flex-start; gap: .7rem; }
+      .strip-info .name-line { white-space: normal; max-width: 100%; }
+      .strip-right { width: 100%; justify-content: space-between; }
     }
     @media (max-width: 520px) {
       .wrap { padding: 0 1.1rem; }
@@ -1215,6 +1370,20 @@
       .hero h1 { letter-spacing: 4px; }
       .hero .btn { display: flex; width: 100%; margin: .35rem 0; }
       .footer-bottom { flex-direction: column; text-align: center; }
+
+      .strip-right { flex-direction: column; align-items: flex-start; gap: .35rem; }
+      .strip-logo { width: 36px; height: 36px; font-size: .55rem; }
+      .strip-info .merchant-line strong { font-size: 1rem; }
+
+      /* Floating button smaller on phones */
+      .feedback-fab {
+        bottom: 1.1rem;
+        right: 1.1rem;
+        padding: .7rem 1.1rem;
+        font-size: .82rem;
+        gap: .4rem;
+      }
+      .feedback-fab svg { width: 15px; height: 15px; }
     }
   </style>
 </head>
@@ -1396,7 +1565,7 @@
         <div class="priority-card">
           
           <div class="logo-box">
-            <img src="REPLACE_WITH_UICT_LOGO" alt="uictLogo.jpg">
+            <img src="uictLogo.jpeg" alt="uictLogo.jpg">
           </div>
           <h3>UICT</h3>
           <div class="priority-role">Our Home Institution</div>
@@ -1405,7 +1574,7 @@
 
         <div class="priority-card">
         <div class="logo-box">
-            <img src="REPLACE_WITH_ICTHUB_LOGO" alt="Hublogo.jpg">
+            <img src="icthubLogo.jpeg" alt="Hublogo.jpg">
           </div>
           <h3>ICT-Hub</h3>
           <div class="priority-role">Where Ideas Become Real</div>
@@ -1422,42 +1591,17 @@
         <button class="tab" data-tab="universities">Universities</button>
       </div>
 
-      <div class="panel active" id="panel-industry">
-        <div class="partner-grid">
-          <div class="partner-card"><div class="partner-logo">IND</div><h4>Industry Partner</h4><span>PENDING</span></div>
-          <div class="partner-card"><div class="partner-logo">IND</div><h4>Industry Partner</h4><span>PENDING</span></div>
-          <div class="partner-card"><div class="partner-logo">IND</div><h4>Industry Partner</h4><span>PENDING</span></div>
-        </div>
-      </div>
-
       <div class="panel" id="panel-technology">
         <div class="partner-grid">
           <div class="partner-card">
             <div class="partner-logo"><img src="googlelogo.jpeg" alt="Google Developers logo"></div>
             <h4>Google Developers</h4>
-            <span>Google Developer Groups</span>
+            <span>Google Developer Groups UICT</span>
           </div>
-          <div class="partner-card"><div class="partner-logo">AWS</div><h4>AWS</h4><span>Amazon Web Services</span></div>
-          <div class="partner-card"><div class="partner-logo">TECH</div><h4>Technology Partner</h4><span>PENDING</span></div>
+          <div class="partner-card"><div class="partner-logo">AWS</div><h4>AWS</h4><span>AWS Students Builder Group UICT</span></div>
+          <div class="partner-card"><div class="partner-logo">TECH</div><h4>GitHub </h4><span>PENDING</span></div>
         </div>
       </div>
-
-      <div class="panel" id="panel-community">
-        <div class="partner-grid">
-          <div class="partner-card"><div class="partner-logo">COM</div><h4>Community Partner</h4><span>PENDING</span></div>
-          <div class="partner-card"><div class="partner-logo">COM</div><h4>Community Partner</h4><span>PENDING</span></div>
-          <div class="partner-card"><div class="partner-logo">COM</div><h4>Community Partner</h4><span>PENDING</span></div>
-        </div>
-      </div>
-
-      <!-- <div class="panel" id="panel-universities">
-        <div class="partner-grid">
-          <div class="partner-card"><div class="partner-logo">MTS</div><h4>Makerere University</h4><span>Under MTS Club</span></div>
-          <div class="partner-card"><div class="partner-logo">KYU</div><h4>Kyambogo University</h4><span>Under KYUCSA</span></div>
-          <div class="partner-card"><div class="partner-logo">FST</div><h4>Victoria University</h4><span>Under FST</span></div>
-        </div>
-      </div>
-    </div> -->
   </section>
 
   <!-- ============================================================
@@ -1509,7 +1653,7 @@
 
       <div class="patron-wrap">
         <div class="patron-card">
-          <img src="REPLACE_WITH_PATRON_PHOTO" alt="TISA Patron">
+          <img src="ivan.jpeg" alt="TISA Patron">
           <div class="patron-info">
             <span class="patron-tag">Patron</span>
             <h3>MR MUSINGUZI IVAN</h3>
@@ -1521,56 +1665,61 @@
 
       <div class="team-grid">
         <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_1" alt="Team member">
+          <img src="elwin.jpeg" alt="Team member">
           <div class="team-body"><h4>Waasswa Elwin </h4><span>Association President (DCS)</span></div>
         </div>
         <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_2" alt="Team member">
-          <div class="team-body"><h4>AINE MBABAZI KHUZAIFAH</h4><span>Vice President (DSWE)</span></div>
+          <img src="khuzaifah.jpeg" alt="Team member">
+          <div class="team-body"><h4>Aine Mbabazi Khuzaifah (DSWE)</h4><span>Vice President (DSWE)</span></div>
         </div>
         <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_3" alt="Team member">
-          <div class="team-body"><h4>ANTHLEM (DSWE)</h4><span>General Secretary</span></div>
+          <img src="robert.jpeg" alt="Team member">
+          <div class="team-body"><h4>Robert Edema(DCS)</h4><span>General Secretary</span></div>
         </div>
         <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_4" alt="Team member">
-          <div class="team-body"><h4>ABEL (DCS)</h4><span>Accounts &amp; Finance</span></div>
+          <img src="abel.jpeg" alt="Team member">
+          <div class="team-body"><h4>Nsabimaana Abel (DCS)</h4><span>Accounts &amp; Finance</span></div>
         </div>
         <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_5" alt="Team member">
-          <div class="team-body"><h4> PRISCILLA (DSWE)</h4><span>Mobilizer</span></div>
-        </div>
-
-        <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_5" alt="Team member">
-          <div class="team-body"><h4> WAMBI BENARD (DCS)</h4><span>Speaker</span></div>
+          <img src="priscilla.jpeg" alt="Team member">
+          <div class="team-body"><h4>Namiiro Priscilla Milly (DSWE)</h4><span>Welfare </span></div>
         </div>
 
         <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_5" alt="Team member">
-          <div class="team-body"><h4> NABAGESERA AIDAH RUTH</h4><span>Public Relations Secretary</span></div>
+          <img src="benard.jpeg" alt="Team member">
+          <div class="team-body"><h4> Wambi Benard (DCS)</h4><span>Speaker</span></div>
         </div>
 
         <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_5" alt="Team member">
-          <div class="team-body"><h4> FAHAD(DCS)</h4><span>Mobilizer</span></div>
+          <img src="aidah.jpeg" alt="Team member">
+          <div class="team-body"><h4> Nabagesera Aidah Ruth (DSWE)</h4><span>Public Relations Secretary</span></div>
         </div>
 
         <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_5" alt="Team member">
-          <div class="team-body"><h4> SSERUJONJI INNOCENT EZRA(DECE)</h4><span>Projects Coordinator</span></div>
+          <img src="fahad.jpeg" alt="Team member">
+          <div class="team-body"><h4>Bamwese Fahad (DCS)</h4><span> Publicity & Mobilizer</span></div>
+        </div>
+
+          <div class="team-card">
+          <img src="saudah.jpeg" alt="Team member">
+          <div class="team-body"><h4>Nambooze Saudah (DCS)</h4><span> Publicity & Mobilizer</span></div>
         </div>
 
         <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_5" alt="Team member">
-          <div class="team-body"><h4> EDEMA ROBERT</h4><span>Ethical Officer</span></div>
+          <img src="innocent.jpeg" alt="Team member">
+          <div class="team-body"><h4> Sserunjogi Innocent Ezra (DECE)</h4><span>Projects Coordinator</span></div>
+        </div>
+
+        <div class="team-card">
+          <img src="anthlem.jpeg" alt="Team member">
+          <div class="team-body"><h4> Ntwirenabo Anthlem (DSWE)</h4><span>Ethical Officer</span></div>
         </div>
         <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_6" alt="Team member">
-          <div class="team-body"><h4>PENDING</h4><span>Publicity Secretary</span></div>
+          <img src="phionah.jpeg" alt="Team member">
+          <div class="team-body"><h4>Phionah Wuafi</h4><span>Publicity Secretary</span></div>
         </div>
         <div class="team-card">
-          <img src="REPLACE_WITH_TEAM_PHOTO_7" alt="Team member">
+          <img src="alumni.jpeg" alt="Team member">
           <div class="team-body"><h4>PENDING</h4><span>Alumni Representative</span></div>
         </div>
       </div>
@@ -1644,7 +1793,7 @@
           </div>
         </div>
 
-        <form id="tisaRegisterForm" novalidate>
+        <form id="tisaRegisterForm" novalidate  action="https://formspree.io/f/mnpngrzg" method="POST">
           <div class="form-row">
             <div class="field">
               <label>Full Name</label>
@@ -1710,6 +1859,28 @@
             <span>Submit Application</span>
           </button>
         </form>
+
+        <!-- ============ COMPACT AIRTEL MONEY PAYMENT STRIP (after form) ============ -->
+        <div class="payment-strip">
+          <h1 class="strip-title">Pay Membership Fee</h1>
+          <div class="strip-card">
+            <div class="strip-left">
+              <div class="strip-logo">airtel</div>
+              <div class="strip-info">
+                <div class="strip-right">
+              <span class="ussd-label">Pay via</span>
+              <span class="ussd-code">*185*9#</span>
+            </div>
+            
+                <div class="merchant-line">Merchant ID: <strong>7225926</strong></div>
+                <div class="name-line">In The Names of <strong>TISA-UICT</strong> </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <!-- ============ END PAYMENT STRIP ============ -->
+
       </div>
 
       <!-- WHATSAPP CTA -->
@@ -1732,7 +1903,7 @@
           <div class="contact-row">
             <span>LinkedIn: <a href="#" target="_blank" rel="noopener">TISA — UICT</a></span>
             <span>Email: <a href="mailto:tisa.uict@hotmail.com">tisa.uict@hotmail.com</a></span>
-            <span>Call / SMS: <a href="tel:0789958889">0789958889</a></span>
+            <span>Call / SMS: <a href="tel:0789958889">0789958889/0752276607</a></span>
           </div>
         </div>
 
@@ -1742,16 +1913,18 @@
         </div>
       </div>
 
-      <div style="text-align:center;">
-        <a href="feedback.html" class="feedback-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
-          <span>Share Feedback</span>
-        </a>
-      </div>
     </div>
   </section>
+
+  <!-- ============================================================
+       FLOATING FEEDBACK BUTTON (fixed bottom-right, always visible)
+       ============================================================ -->
+  <a href="feedback.html" class="feedback-fab" aria-label="Share feedback">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <span>Share Feedback</span>
+  </a>
 
   <!-- ============================================================
        FOOTER
